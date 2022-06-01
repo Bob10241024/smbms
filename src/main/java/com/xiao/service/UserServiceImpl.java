@@ -33,6 +33,30 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+    /**
+     * 修改用户ID修改密码
+     * @param id
+     * @param password
+     * @return
+     */
+    @Override
+    public boolean updatePwd(int id, String password) {
+        Connection connection = null;
+        boolean flag = false;
+        try {
+            connection = BaseDao.getConnection();
+            if (userDao.updatePwd(connection,id,password)>0){//操作成功
+                flag = true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            BaseDao.closeResource(connection,null,null);
+        }
+        //否则返回 false
+        return flag;//之前 写的是 false
+    }
+
     @Test
     public void test(){
         UserServiceImpl userService = new UserServiceImpl();

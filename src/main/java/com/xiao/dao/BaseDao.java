@@ -58,7 +58,7 @@ public class BaseDao {
     }
 
     //编写增删改公共方法
-    public static int execute(Connection connection,String sql,Object[] params,PreparedStatement preparedStatement) throws SQLException {
+    public static int execute(Connection connection,PreparedStatement preparedStatement,String sql,Object[] params) throws SQLException {
         //预编译的sql，在后面直接执行就可以了
         preparedStatement = connection.prepareStatement(sql);
 
