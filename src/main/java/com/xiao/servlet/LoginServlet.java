@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+// 登录
 public class LoginServlet extends HttpServlet {
     //Servlet: 控制层， 调用业务层代码
 
