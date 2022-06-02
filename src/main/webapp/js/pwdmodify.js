@@ -17,8 +17,9 @@ $(function(){
 		$.ajax({
 			type:"GET",
 			url:path+"/jsp/user.do",
-			data:{method:"pwdmodify",oldpassword:oldpassword.val()},
-			dataType:"json",
+			data:{method:"pwdmodify",oldpassword:oldpassword.val()},//Ajax传递的参数 //--->UserServlet.java
+			//path+ /jsp/user.do?method=pwdmodify&oldpassword=oldpassword.val()
+			dataType:"json",//主流开发都是用JSON实现前后端{}
 			success:function(data){
 				if(data.result == "true"){//旧密码正确
 					validateTip(oldpassword.next(),{"color":"green"},imgYes,true);
@@ -42,7 +43,7 @@ $(function(){
 	});
 	
 	newpassword.on("focus",function(){
-		validateTip(newpassword.next(),{"color":"#666666"},"* 密码长度必须是大于6小于20",true);//false
+		validateTip(newpassword.next(),{"color":"#666666"},"* 密码长度必须是大于6小于20",false);//false
 	}).on("blur",function(){
 		if(newpassword.val() != null && newpassword.val().length > 5
 				&& newpassword.val().length < 20 ){
@@ -54,7 +55,7 @@ $(function(){
 	
 	
 	rnewpassword.on("focus",function(){
-		validateTip(rnewpassword.next(),{"color":"#666666"},"* 请输入与上面一致的密码",true);//false
+		validateTip(rnewpassword.next(),{"color":"#666666"},"* 请输入与上面一致的密码",false);//false
 	}).on("blur",function(){
 		if(rnewpassword.val() != null && rnewpassword.val().length > 5
 				&& rnewpassword.val().length < 20 && newpassword.val() == rnewpassword.val()){
@@ -65,31 +66,29 @@ $(function(){
 	});
 	
 	//原有代码
-	// saveBtn.on("click",function(){
-	// 	oldpassword.blur();
-	// 	newpassword.blur();
-	// 	rnewpassword.blur();
-	// 	if(oldpassword.attr("validateStatus") == "true"
-	// 		&& newpassword.attr("validateStatus") == "true"
-	// 		&& rnewpassword.attr("validateStatus") == "true"){
-	// 		if(confirm("确定要修改密码？")){
-	// 			$("#userForm").submit();
-	// 		}
-	// 	}
-	//
-	// });
-
-	//更改代码
 	saveBtn.on("click",function(){
 		oldpassword.blur();
 		newpassword.blur();
 		rnewpassword.blur();
-		if(newpassword.attr("validateStatus") == "true"
+		if(oldpassword.attr("validateStatus") == "true"
+			&& newpassword.attr("validateStatus") == "true"
 			&& rnewpassword.attr("validateStatus") == "true"){
 			if(confirm("确定要修改密码？")){
 				$("#userForm").submit();
 			}
 		}
-
 	});
+
+	//更改代码
+	// saveBtn.on("click",function(){
+	// 	// oldpassword.blur();
+	// 	newpassword.blur();
+	// 	rnewpassword.blur();
+	// 	if(newpassword.attr("validateStatus") == "true"
+	// 		&& rnewpassword.attr("validateStatus") == "true"){
+	// 		if(confirm("确定要修改密码？")){
+	// 			$("#userForm").submit();
+	// 		}
+	// 	}
+	// });
 });
