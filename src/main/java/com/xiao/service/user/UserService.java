@@ -1,4 +1,4 @@
-package com.xiao.service;
+package com.xiao.service.user;
 
 import com.xiao.pojo.User;
 

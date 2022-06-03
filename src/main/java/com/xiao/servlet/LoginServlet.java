@@ -1,8 +1,8 @@
 package com.xiao.servlet;
 
 import com.xiao.pojo.User;
-import com.xiao.service.UserService;
-import com.xiao.service.UserServiceImpl;
+import com.xiao.service.user.UserService;
+import com.xiao.service.user.UserServiceImpl;
 import com.xiao.util.Constants;
 
 import javax.servlet.ServletException;

@@ -1,6 +1,8 @@
 package com.xiao.dao.user;
 
+import com.xiao.pojo.Role;
 import com.xiao.pojo.User;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,4 +21,6 @@ public interface UserDao {
 
     //获取用户列表  通过条件查询-userList
     public List<User> getUserList(Connection connection, String userName, int userRole, int currentPageNo, int pageSize) throws Exception;
+
+
 }

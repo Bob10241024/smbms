@@ -2,6 +2,7 @@ package com.xiao.dao.user;
 
 import com.mysql.cj.util.StringUtils;
 import com.xiao.dao.BaseDao;
+import com.xiao.pojo.Role;
 import com.xiao.pojo.User;
 
 import java.sql.Connection;
@@ -168,4 +169,6 @@ public class UserDaoImpl implements UserDao{
         }
         return userList;
     }
+
+
 }
