@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserServiceImpl implements UserService{
 
@@ -57,11 +58,73 @@ public class UserServiceImpl implements UserService{
         return flag;//之前 写的是 false
     }
 
+    /**
+     * 查询记录数
+     * @param username
+     * @param userRole
+     * @return
+     */
+    @Override
+    public int getUserCount(String username, int userRole) {
+        Connection connection = null;
+        int count = 0;
+        try {
+            connection = BaseDao.getConnection();
+            count = userDao.getUserCount(connection,username,userRole);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            BaseDao.closeResource(connection,null,null);
+        }
+
+        return count;
+    }
+
+    /**
+     * 根据条件查询用户
+     * @param queryUserName
+     * @param queryUserRole
+     * @param currentPageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<User> getUserList(String queryUserName, int queryUserRole, int currentPageNo, int pageSize) {
+        Connection connection = null;
+        List<User> userList = null;
+
+        System.out.println("queryUserName------>"+queryUserName);
+        System.out.println("queryUserRole------>"+queryUserRole);
+        System.out.println("currentPageNo------>"+currentPageNo);
+        System.out.println("pageSize------>"+pageSize);
+        try{
+            connection = BaseDao.getConnection();
+            userList = userDao.getUserList(connection,queryUserName,queryUserRole,currentPageNo,pageSize);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            BaseDao.closeResource(connection,null,null);
+        }
+        return userList;
+    }
+
     @Test
     public void test(){
         UserServiceImpl userService = new UserServiceImpl();
         User user = userService.login("admin", "123");
         System.out.println(user.getUserName());
+    }
+    @Test
+    public void test2(){
+        UserServiceImpl userService = new UserServiceImpl();
+        int userCount = userService.getUserCount("null", 2);
+        System.out.println(userCount);
+    }
+    @Test
+    public void test3(){
+        UserServiceImpl userService = new UserServiceImpl();
+        List<User> userList = userService.getUserList("李明", 2, 1, 1);
+        System.out.println(userList);
     }
 
 }
